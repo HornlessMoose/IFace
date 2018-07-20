@@ -1,32 +1,31 @@
-
 import java.util.Scanner;
 public class Main {
     private static Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
 
-        String[][] userProfiles = new String[200][6]; // LOGIN == 0
-                                                      // PASSWORD == 1
-                                                      // NAME == 2
-                                                      // ADDRESS == 3
-                                                      // EMAIL = 4
-                                                      // COMMUNITY = 5
+        String[][] userProfiles = new String[200][6];   // LOGIN == 0
+                                                        // PASSWORD == 1
+                                                        // NAME == 2
+                                                        // ADDRESS == 3
+                                                        // EMAIL = 4
+                                                        // COMMUNITY = 5
 
         initializeProfiles(userProfiles);
 
-        int[][] friendships = new int[200][200];      // NO FRIENDS == 0
-                                                      // FRIENDSHIP PENDING == 1
-                                                      // FRIENDS == 2
+        int[][] friendships = new int[200][200];        // NO FRIENDS == 0
+                                                        // FRIENDSHIP PENDING == 1
+                                                        // FRIENDS == 2
         initializeFriendships(friendships);
 
         String[][] friendsMessages = new String[200][200];
         initializeMessages(friendsMessages);
 
-        String[][] communities = new String[200][203]; // i = 0; i < 200; i++
-                                                       // j = 3; j < 203; j++
-                                                       // COMMUNITIES [i][0] == OWNER EMAIL(ID)
-                                                       // COMMUNITIES [i][1] == COMMUNITY NAME
-                                                       // COMMUNITIES [i][2] == COMMUNITY DESCRIPTION
-                                                       // COMMUNITIES [i][j] == MEMBERS EMAIL
+        String[][] communities = new String[200][203];  // i = 0; i < 200; i++
+                                                        // j = 3; j < 203; j++
+                                                        // COMMUNITIES [i][0] == OWNER EMAIL(ID)
+                                                        // COMMUNITIES [i][1] == COMMUNITY NAME
+                                                        // COMMUNITIES [i][2] == COMMUNITY DESCRIPTION
+                                                        // COMMUNITIES [i][j] == MEMBERS EMAIL
 
 
         initializeCommunities(communities);
@@ -130,8 +129,8 @@ public class Main {
                     break;
 
 
-                 default:
-                     System.out.println("opção invalida.");
+                default:
+                    System.out.println("opção invalida.");
             }
             menu();
             choice = Integer.parseInt(input.nextLine());
@@ -139,7 +138,7 @@ public class Main {
     }
 
     private static int deleteAccount(int position, String[][] userProfiles,
-                                      String[][] communities, int[][] friendships, String[][] friendsMessages, int loggedOptions) {
+                                     String[][] communities, int[][] friendships, String[][] friendsMessages, int loggedOptions) {
         System.out.println("Deseja mesmo encerrar sua conta do IFace?\n1) Sim\n2) Não");
         int choice = Integer.parseInt(input.nextLine());
 
@@ -163,7 +162,7 @@ public class Main {
     }
 
     private static void deleteAccountDefinitely(int position, String[][] userProfiles,
-                                    String[][] communities, int[][] friendships, String[][] friendsMessages) {
+                                                String[][] communities, int[][] friendships, String[][] friendsMessages) {
         int i, j;
 
         for( i = 0; i < 200; i++){
@@ -195,6 +194,15 @@ public class Main {
                 if(communities[i][j].equals(userProfiles[position][4])){
                     System.out.printf("%s\n", communities[i][1]);
                 }
+            }
+        }
+        System.out.println("Selecione uma comunidade para exibir sua descrição:");
+        String communityName = input.nextLine();
+
+        for(int i = 0; i < 200; i++){
+            if(communities[i][1].equals(communityName)){
+                System.out.printf("%s\n", communities[i][2]);
+                break;
             }
         }
     }
@@ -241,6 +249,11 @@ public class Main {
                 }
                 break;
             }
+
+        }
+
+        if(i >= 200){
+            System.out.println("Uma comunidade com esse nome não existe.");
         }
 
     }
@@ -371,7 +384,7 @@ public class Main {
                         break;
                     default:
                         System.out.println("Opção invalida!");
-                       // i--;
+                        // i--;
                 }
             }
         }
@@ -432,10 +445,11 @@ public class Main {
     }
 
     private static void createAccount(int position, String[][] userProfiles,
-                                     String login, String name, String password) {
+                                      String login, String name, String password) {
         userProfiles[position][0] = login;
         userProfiles[position][2] = name;
         userProfiles[position][1] = password;
+        userProfiles[position][4] = login + "@ic.ufal.br";
 
 
     }
